@@ -38,7 +38,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>dev.soynx.dyndnsrefreshbot.DynDnsRefreshBot</mainClass>
+                            <mainClass>com.dns.refresh.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
