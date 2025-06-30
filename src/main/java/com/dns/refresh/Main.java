@@ -21,7 +21,7 @@ public class Main {
     }
 
     public void mainloop() {
-        if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "").isEmpty()) {
+        if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "") == null) {
             logger.error("No refresh domains specified");
             throw new RuntimeException("No refresh domains specified");
         }
