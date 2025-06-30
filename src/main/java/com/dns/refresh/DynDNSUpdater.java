@@ -20,6 +20,7 @@ public class DynDNSUpdater {
      * @return true if HTTP response is 200 OK, false otherwise
      */
     public static boolean updateDynDNS(String updateUrl) {
+        logger.info("Updating DynDNS with url {}", updateUrl);
         HttpURLConnection connection = null;
         try {
             URL url = new URL(updateUrl);
