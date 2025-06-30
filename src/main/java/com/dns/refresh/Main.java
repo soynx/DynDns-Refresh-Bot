@@ -27,9 +27,8 @@ public class Main {
         }
 
         while (true) {
-
             try {
-                Thread.sleep(loopTimeout);
+                Thread.sleep(loopTimeout * 1000);
             } catch (InterruptedException e) {
                 logger.warn("Could not perform a thread sleep!");
             }

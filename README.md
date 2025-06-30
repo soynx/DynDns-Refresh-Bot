@@ -9,3 +9,21 @@ The reason is to set properties over the env that will then set them over the ja
 ```$JAVA_OPTS="-Dtimeouts.http=3000```
 
 With the ``-D`` parameter you can set Properties. 
+
+### So use it like this:
+````yaml
+version: "3.8"
+
+services:
+  dyndns-bot:
+    build: .
+    environment:
+      JAVA_OPTS: "-Drefresh.domains=https://my.first.dyndns.org;https://my.seconds.dyndns.org -Dtimeouts.loop=5"
+````
+
+### Following arguments are possible:
+- ``refresh.domains``: all domains that you use to refresh your dyndns seperated by a ``;``
+- ``timeouts.loop``: how long the loop is going to stop for each cycle (in seconds)
+- ``timeouts.http``: how long it takes for a http call to timeout (in ms)
+- ``startup-ip``: the ip-address that will be used at the start of the service (does not play a big difference)
+- 
