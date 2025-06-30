@@ -3,6 +3,8 @@ package com.dns.refresh;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static Logger logger = LoggerFactory.getLogger(Main.class);
@@ -24,6 +26,8 @@ public class Main {
         if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "") == null) {
             logger.error("No refresh domains specified");
             throw new RuntimeException("No refresh domains specified");
+        } else {
+            logger.info("Got refresh-domains: {}", Arrays.toString(refreshDomains));
         }
 
         while (true) {
