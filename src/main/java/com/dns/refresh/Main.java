@@ -9,7 +9,7 @@ public class Main {
     public static Logger logger = LoggerFactory.getLogger(Main.class);
     public static int loopTimeout = Integer.parseInt(System.getProperty("timeouts.loop", "10"));
     private String currentIpAddress = System.getProperty("startup.ip", "<ip_address_not_set_yet>");
-    private String[] refreshDomains = System.getProperty("refresh.domains", "").split(";");
+    private final String[] refreshDomains = System.getProperty("refresh.domains", "").split(";");
 
     public static void main(String[] args) {
         logger.info("Starting Refresh Bot");
@@ -17,7 +17,7 @@ public class Main {
     }
 
     public void mainloop() {
-        if (refreshDomains.length == 0) {
+        if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "").isEmpty()) {
             logger.error("No refresh domains specified");
             throw new RuntimeException("No refresh domains specified");
         }

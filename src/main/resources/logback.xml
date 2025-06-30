@@ -9,7 +9,7 @@
 
     <!--Save log inside a file with a file-rotater with a max of 10 files with each 1 GB-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>appdata/logs/app.log</file>
+        <file>dyndns-refresh-bot.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>dyndns-refresh-bot.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
