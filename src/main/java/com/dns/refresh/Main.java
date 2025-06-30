@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         logger.info("Starting Refresh Bot");
-        if (System.getenv("JAVA_OPTS").isEmpty()) {
+        if (System.getenv("JAVA_OPTS") == null || System.getenv("JAVA_OPTS").isEmpty()) {
             logger.warn("No Properties defined over env-variables!");
             logger.warn("We recommend to use the env-variable 'JAVA_OPTS' to set properties inside JVM");
             logger.warn("Example: '$JAVA_OPTS=\"-Drefresh.domains=https://my.dyndns.org\"'");
@@ -21,7 +21,7 @@ public class Main {
     }
 
     public void mainloop() {
-        if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "") == null) {
+        if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "") == null || System.getProperty("refresh.domains").isEmpty()) {
             logger.error("No refresh domains specified");
             throw new RuntimeException("No refresh domains specified");
         }
