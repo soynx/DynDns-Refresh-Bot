@@ -6,7 +6,7 @@ Define the Properties of this tool over a Env-Variable called "JAVA_OPTS".
 This variable can be used to set any amount of Options to the jar execution call.
 The reason is to set properties over the env that will then set them over the jar call like this:
 
-```$JAVA_OPTS="-Dtimeouts.http=3000```
+```$JAVA_OPTS="-Dtimeouts.http=3000"```
 
 With the ``-D`` parameter you can set Properties. 
 
@@ -18,7 +18,8 @@ services:
   dyndns-bot:
     build: .
     environment:
-      JAVA_OPTS: "-Drefresh.domains=https://my.first.dyndns.org;https://my.seconds.dyndns.org -Dtimeouts.loop=5"
+      JAVA_OPTS: "-Drefresh.domains=https://url1.org;https://url2.org -Dtimeouts.loop=5"
+      LOG_LEVEL: "DEBUG"
 ````
 
 ### Following arguments are possible:

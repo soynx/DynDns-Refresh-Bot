@@ -7,3 +7,4 @@ services:
     container_name: dyndns-bot
     environment:
       JAVA_OPTS: "-Drefresh.domains=https://my.dns.org/update"
+      LOG_LEVEL: "DEBUG"
