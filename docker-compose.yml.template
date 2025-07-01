@@ -8,3 +8,5 @@ services:
     environment:
       JAVA_OPTS: "-Drefresh.domains=https://my.dns.org/update"
       LOG_LEVEL: "DEBUG"
+    storage_opt:
+      size: 126m
