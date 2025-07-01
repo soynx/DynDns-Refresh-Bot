@@ -20,7 +20,7 @@ public class DynDNSUpdater {
      * @return true if HTTP response is 200 OK, false otherwise
      */
     public static boolean updateDynDNS(String updateUrl) {
-        logger.info("Updating DynDNS with url {}", updateUrl);
+        logger.debug("Updating DynDNS with url {}", updateUrl);
         HttpURLConnection connection = null;
         try {
             URL url = new URL(updateUrl);
@@ -50,6 +50,7 @@ public class DynDNSUpdater {
     }
 
     public static String getPublicIP() throws Exception {
+        logger.trace("Getting public IP");
         URL url = new URL("https://api.ipify.org?format=text");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 

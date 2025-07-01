@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   dyndns-bot:
-    image: dyndns-refresh-bot:latest
+    build: .
     restart: always
     container_name: dyndns-bot
     environment:

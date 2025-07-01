@@ -17,6 +17,7 @@ version: "3.8"
 services:
   dyndns-bot:
     build: .
+    container_name: dyndns-bot
     environment:
       JAVA_OPTS: "-Drefresh.domains=https://url1.org;https://url2.org -Dtimeouts.loop=5"
       LOG_LEVEL: "DEBUG"
@@ -29,4 +30,6 @@ services:
 - ``startup-ip``: the ip-address that will be used at the start of the service (does not play a big difference)
 
 
-Log level can be set by setting env ``LOG_LEVEL`` to TRACE, DEBUG, INFO, WARN, or ERROR
+Log level can be set by setting env ``LOG_LEVEL`` to TRACE, DEBUG, INFO, WARN, or ERROR.
+
+Logs are saved inside the container at ``/app/logs/``

@@ -27,7 +27,7 @@ public class Main {
             logger.error("No refresh domains specified");
             throw new RuntimeException("No refresh domains specified");
         } else {
-            logger.info("Got refresh-domains: {}", Arrays.toString(refreshDomains));
+            logger.debug("Got refresh-domains: {}", Arrays.toString(refreshDomains));
         }
 
         while (true) {
