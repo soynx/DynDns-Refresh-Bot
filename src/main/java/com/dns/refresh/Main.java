@@ -3,6 +3,8 @@ package com.dns.refresh;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 
 public class Main {
@@ -22,12 +24,39 @@ public class Main {
         new Main().mainloop();
     }
 
+    public static String censoreUrl(String url) {
+        if (url == null || url.isBlank()) return null;
+
+        try {
+            // Ensure URI parsing works even if scheme is missing
+            String normalizedUrl = url.matches("^[a-zA-Z][a-zA-Z0-9+.-]*://.*") ? url : "http://" + url;
+
+            URI uri = new URI(normalizedUrl);
+            String scheme = uri.getScheme();
+            String host = uri.getHost();
+
+            if (scheme == null || host == null) {
+                return null;
+            }
+
+            // Remove "www." if present
+            String domain = host.startsWith("www.") ? host.substring(4) : host;
+
+            return scheme + "://" + domain;
+
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+
     public void mainloop() {
         if (refreshDomains.length == 0 || System.getProperty("refresh.domains", "") == null) {
             logger.error("No refresh domains specified");
             throw new RuntimeException("No refresh domains specified");
         } else {
-            logger.debug("Got refresh-domains: {}", Arrays.toString(refreshDomains));
+            for (String domain : refreshDomains) {
+                logger.info("Got refresh-domain: {}", censoreUrl(domain));
+            }
         }
 
         while (true) {
@@ -59,7 +88,7 @@ public class Main {
 
                 for (String refreshDomain : refreshDomains) {
                     DynDNSUpdater.updateDynDNS(refreshDomain);
-                    logger.info("New IP address {} updated with url: {}!", newIpAddress, refreshDomain);
+                    logger.info("New IP address {} updated with url: {}!", newIpAddress, censoreUrl(refreshDomain));
                 }
             }
         }
