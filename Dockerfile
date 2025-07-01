@@ -20,4 +20,5 @@ COPY --from=builder /app/target/DynDns-Refresh-Bot-1.0-SNAPSHOT.jar app.jar
 
 # Set entrypoint
 ENV JAVA_OPTS=""
-ENTRYPOINT java $JAVA_OPTS -jar app.jar
+ENV LOG_LEVEL=WARN
+ENTRYPOINT java -Dlog.level=$LOG_LEVEL $JAVA_OPTS -jar app.jar

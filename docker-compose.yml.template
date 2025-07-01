@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  dyndns-bot:
+    image: dyndns-refresh-bot:latest
+    restart: always
+    container_name: dyndns-bot
+    environment:
+      JAVA_OPTS: "-Drefresh.domains=https://my.dns.org/update"

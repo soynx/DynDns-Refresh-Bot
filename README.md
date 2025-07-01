@@ -26,3 +26,6 @@ services:
 - ``timeouts.loop``: how long the loop is going to stop for each cycle (in seconds)
 - ``timeouts.http``: how long it takes for a http call to timeout (in ms)
 - ``startup-ip``: the ip-address that will be used at the start of the service (does not play a big difference)
+
+
+Log level can be set by setting env ``LOG_LEVEL`` to TRACE, DEBUG, INFO, WARN, or ERROR
