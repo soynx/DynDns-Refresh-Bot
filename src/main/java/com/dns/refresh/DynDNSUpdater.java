@@ -49,28 +49,44 @@ public class DynDNSUpdater {
         }
     }
 
-    public static String getPublicIP() throws Exception {
+    public static String getPublicIP() {
         logger.trace("Getting public IP");
-        URL url = new URL("https://api.ipify.org?format=text");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        // Optional: Set timeout values
-        connection.setConnectTimeout(httpTimeoutMs);
-        connection.setReadTimeout(httpTimeoutMs);
+        String[] urls = {
+                "https://api.ipify.org?format=text",
+                "https://checkip.amazonaws.com/",
+                "https://ifconfig.me/ip",
+                "https://icanhazip.com/",
+                "https://ident.me/"
+        };
 
-        connection.setRequestMethod("GET");
+        for (String urlStr : urls) {
+            try {
+                URL url = new URL(urlStr);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(httpTimeoutMs);
+                connection.setReadTimeout(httpTimeoutMs);
+                connection.setRequestMethod("GET");
 
-        int status = connection.getResponseCode();
-        if (status != 200) {
-            logger.error("Failed to get Public-IP: HTTP error code {}; message {}", status, connection.getResponseMessage());
-            throw new RuntimeException("Failed to get Public-IP: HTTP error code " + status);
+                int status = connection.getResponseCode();
+                if (status == 200) {
+                    try (BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(connection.getInputStream()))) {
+                        String ip = reader.readLine();
+                        if (ip != null && !ip.isEmpty()) {
+                            logger.info("Successfully retrieved public IP from {}", urlStr);
+                            return ip.trim();
+                        }
+                    }
+                } else {
+                    logger.warn("Failed to get Public-IP from {}: HTTP {}", urlStr, status);
+                }
+            } catch (Exception e) {
+                logger.warn("Error getting Public-IP from {}: {}", urlStr, e.toString());
+            }
         }
 
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(connection.getInputStream()))) {
-            return reader.readLine();
-        } finally {
-            connection.disconnect();
-        }
+        throw new RuntimeException("Unable to determine public IP from any source");
     }
+
 }
