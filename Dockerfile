@@ -16,7 +16,7 @@ FROM eclipse-temurin:23-jdk
 WORKDIR /app
 
 # Copy the JAR from the build stage
-COPY --from=builder /app/target/DynDns-Refresh-Bot-1.2.1.jar app.jar
+COPY --from=builder /app/target/DynDns-Refresh-Bot-1.2.2.jar app.jar
 
 # Set entrypoint
 ENV JAVA_OPTS=""
